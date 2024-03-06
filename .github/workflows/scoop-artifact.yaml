@@ -20,7 +20,7 @@ jobs:
           New-Item -Path 'artifact' -ItemType Directory
           $scoop_zip = "artifact\scoop.zip" + $scoopConfig.artifact_ver + ".zip"
           $scoop_path = $HOME + "\scoop"
-          Compress-Archive -Path $scoop_path -D -D $scoop_zip
+          Compress-Archive -Path $scoop_path -D $scoop_zip
       - name: Upload artifact.
         uses: actions/upload-artifact@v3
         with:
