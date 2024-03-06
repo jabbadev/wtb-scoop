@@ -11,6 +11,7 @@ jobs:
         shell: pwsh
     steps:
       - uses: actions/checkout@v3
+      
       - name: Scoop setup
         run: |
           Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
@@ -18,11 +19,15 @@ jobs:
           ./install.ps1 -RunAsAdmin
           scoop update
           New-Item -Path 'artifact' -ItemType Directory
-          $scoop_zip = "artifact\scoop.zip" + $scoopConfig.artifact_ver + ".zip"
+          $scoop_zip = "artifact\scoop." + ${{ github.ref }} + ".zip"
           $scoop_path = $HOME + "\scoop"
           Compress-Archive -Path $scoop_path -D $scoop_zip
-      - name: Upload artifact.
-        uses: actions/upload-artifact@v3
+
+      - name: Create Release
+        id: create_release
+        uses: ncipollo/release-action@v1
         with:
-          name: Scoop Artifact
-          path: artifact\*
+          tag_name: ${{ github.ref }}
+          name: wtb-scoop.${{ github.ref }}.zip
+          artifacts: wtb-scoop.${{ github.ref }}.zip
+      
