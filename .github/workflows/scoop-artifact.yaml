@@ -15,8 +15,9 @@ jobs:
         run: |
           Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
           Invoke-RestMethod get.scoop.sh -outfile 'install.ps1'
-          ./install.ps1 -RunAsAdmin | Out-Null
+          ./install.ps1 -RunAsAdmin
           scoop update
+          Get-Command scoop.cmd
       - name: Upload artifact.
         uses: actions/upload-artifact@v3
         with:
