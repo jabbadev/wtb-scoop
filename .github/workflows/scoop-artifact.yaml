@@ -1,0 +1,24 @@
+name: Build Scoop Artifact
+run-name: ${{ github.actor }} Build Scoop.sh artifact.
+on: push
+jobs:
+  setup:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v3
+      - name: Scoop setup
+        run: |
+          Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
+          Invoke-RestMethod get.scoop.sh -outfile 'install.ps1'
+          ./install.ps1 -RunAsAdmin | Out-Null
+          scoop update
+      - name: Upload artifact.
+        uses: actions/upload-artifact@v3
+        with:
+          name: Scoop Artifact
+          path: artifact\*
