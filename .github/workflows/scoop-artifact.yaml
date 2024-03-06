@@ -8,7 +8,7 @@ jobs:
   setup:
     runs-on: windows-latest
     permissions:
-      contents: read
+      contents: write
     defaults:
       run:
         shell: pwsh
