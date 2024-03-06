@@ -29,5 +29,5 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           name: wtb-scoop.${{ github.ref }}.zip
-          artifacts: "artifact\wtp-scoop.zip"
+          artifacts: "artifact/wtp-scoop.zip"
       
