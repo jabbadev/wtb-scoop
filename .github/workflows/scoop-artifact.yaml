@@ -1,6 +1,9 @@
 name: Build Scoop Artifact
 run-name: ${{ github.actor }} Build Scoop.sh artifact.
-on: push
+on:
+  push:
+    tags:
+    - "*"
 jobs:
   setup:
     runs-on: windows-latest
